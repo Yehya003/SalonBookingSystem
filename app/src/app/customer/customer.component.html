@@ -1,0 +1,18 @@
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+
+<div class="form-container">
+
+    <form (submit)="addCustomer()">
+      <mat-form-field>
+        <input [(ngModel)]="name" name="name" matInput placeholder="Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input [(ngModel)]="email" name="email" matInput placeholder="Email" type="email">
+      </mat-form-field>
+      <mat-form-field>
+        <input [(ngModel)]="contact" name="contact" matInput placeholder="Contact" type="number">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Sighn Up</button>
+    </form>
+  </div>
