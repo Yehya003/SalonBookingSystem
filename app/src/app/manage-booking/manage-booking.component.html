@@ -20,6 +20,11 @@
       <th mat-header-cell *matHeaderCellDef> Cancel </th>
       <td mat-cell *matCellDef="let appointment"><button (click)="cancelAppointment(appointment._id)" mat-raised-button color="warn">Cancel</button></td>
     </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef> Edit </th>
+      <td mat-cell *matCellDef="let appointment"><button (click)="editAppointment(appointment._appointmentDate,appointment._name,appointment._email)" mat-raised-button
+          color="warn">Cancel</button></td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let appointments; columns: columns"></tr>

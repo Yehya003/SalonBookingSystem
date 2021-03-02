@@ -10,8 +10,8 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class ManageCustomerComponent implements OnInit {
 
-  public successMsg : string='';
-  public errorMsg: string = '';
+  public successMsg!: string;
+  public errorMsg!: string;
   public loading = true;
   public customers: Customer[] = [];
   public columns = ['name','email','contact','delete','update'];

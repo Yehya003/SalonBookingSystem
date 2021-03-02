@@ -14,7 +14,7 @@ export class ManageBookingComponent implements OnInit {
   public errorMsg!: string;
   public loading = true;
   public appointments: Appointment[] = [];
-  public columns = ['appointmentDate', 'name', 'email', 'cancel'];
+  public columns = ['appointmentDate', 'name', 'email', 'cancel', 'edit'];
   
   constructor(public adminService: AdminService) { }
 
@@ -38,6 +38,18 @@ export class ManageBookingComponent implements OnInit {
       .subscribe((appointments: Appointment[]) => {
         this.appointments = appointments;
         this.successMsg = 'Successfully cancelled appointment';
+      },
+      (error: ErrorEvent) => {
+        this.errorMsg = error.error.message;
+      });
+  }
+
+  editAppointment(appointmentDate: string, name: string, email: string) {
+    this.successMsg = '';
+    this.errorMsg = '';
+    this.adminService.updateAppointment(appointmentDate, name, email)
+    .subscribe((editAppointments: Appointment) => {
+          this.successMsg = 'Successfully updated appointment';
       },
       (error: ErrorEvent) => {
         this.errorMsg = error.error.message;

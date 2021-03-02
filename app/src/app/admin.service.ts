@@ -43,4 +43,8 @@ export class AdminService {
     cancelAppointment(id: string): Observable<any> {
       return this.http.delete(`${this.BASE_URL}/appointments/${id}`);
     }
+
+    updateAppointment(appointmentDate:string, name:string, email:string):Observable<Appointment> {
+        return this.http.post<Appointment>(`${this.BASE_URL}/appointments`, {appointmentDate,name, email});
+    }
 }
