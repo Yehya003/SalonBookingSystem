@@ -1,19 +1,11 @@
-.form-container {
-    margin-top: 50px;
-    max-width: 350px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .error {
-    background-color: #d84f4f;
-    padding: 10px;
-  }
-  
-  .success {
-    background-color: #73cc73;
-    padding: 10px;
-  }
+h1 {
+
+	font-size: 200%;
+	color: black;
+
+}
+.homePage{
+  border: 5px outset black;
+  background-color: rgb(185, 199, 204);
+  text-align: center;
+}

@@ -1,5 +1,6 @@
 <mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
 <mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+<app-header></app-header>
 <div class="form-container">
 
   <form (submit)="createAppointment()">
@@ -17,3 +18,4 @@
     <button mat-raised-button color="primary">Make Appointment</button>
   </form>
 </div>
+<app-footer></app-footer>

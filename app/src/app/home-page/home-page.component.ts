@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
-import { User } from 'src/User';
-import { AdminService } from '../admin.service';
+
 
 
 @Component({
@@ -11,22 +9,11 @@ import { AdminService } from '../admin.service';
 })
 export class HomePageComponent implements OnInit {
 
-  public successMsg!:string;
-  public errorMsg!: string;
-  email!: string;
-  password!: string;
   
-  constructor(public adminService: AdminService) { }
+  
+  constructor() { }
 
   ngOnInit() {
   }
   
-  signIn() {
-   this.adminService.signIn(this.email, this.password)
-    
-      this.email ='';
-      this.password ='';
-      this.successMsg = 'You are logged in!';
-    
-  }
 }

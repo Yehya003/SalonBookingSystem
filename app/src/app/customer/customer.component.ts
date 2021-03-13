@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdminService } from '../admin.service';
 import { mergeMap } from 'rxjs/operators';
 import { User } from 'src/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer',
@@ -18,10 +19,14 @@ export class CustomerComponent implements OnInit {
   password!: string;
   isAdmin!: boolean;
   
-  constructor(public adminService: AdminService) { }
+  constructor(public adminService: AdminService, private router: Router) { }
 
   ngOnInit() {
   }
+
+  openToggle() {
+    this.router.navigate(['/login']);
+}
   
   addCustomer() {
     this.successMsg = "";

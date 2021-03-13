@@ -31,7 +31,7 @@ export class AdminService {
     });
   }
 
-  signIn(email: string, password: string) {
+  /*signIn(email: string, password: string) {
     this.http
       .post<User>(
         `${this.BASE_URL}/api/auth/login`,
@@ -46,8 +46,26 @@ export class AdminService {
 
         console.log(headers);
       });
-  }
+  }*/
 
+  signIn(email: string, password: string) {
+    const headers = new HttpHeaders({
+       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+       'Access-Control-Allow-Origin': '*',
+       //'Content-Type': 'application/json;charset=ISO-8859-1'
+    });
+
+    const options = {
+      headers: headers,
+    };
+    return this.http
+      .post(`${this.BASE_URL}/api/auth/login`, { email, password }, options)
+      .pipe(
+        map (res => {
+          return{ status: res.toString, data: res.toString};
+        })
+      );
+  }
   /*
   signIn(email: string, password: string) {
     const headers = new HttpHeaders({

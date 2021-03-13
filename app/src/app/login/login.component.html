@@ -1,0 +1,18 @@
+<app-header></app-header>
+<!-- SIgn in button -->
+<mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
+<mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
+
+<div class="form-container">
+
+    <form (submit)="signIn()">
+        <mat-form-field>
+            <input [(ngModel)]="email" name="email" matInput placeholder="Email" type="email">
+        </mat-form-field>
+        <mat-form-field>
+            <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (submit)="openToggle()">Sign in</button>
+    </form>
+</div>
+<app-footer></app-footer>

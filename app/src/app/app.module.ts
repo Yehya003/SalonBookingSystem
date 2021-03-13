@@ -20,6 +20,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FooterComponent } from './footer/footer.component';
+import { AboutPageComponent } from './about-page/about-page.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     CustomerComponent,
     ManageCustomerComponent,
     ManageBookingComponent,
+    FooterComponent,
+    AboutPageComponent,
+    HeaderComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

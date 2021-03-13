@@ -5,6 +5,8 @@ import { CustomerComponent } from './customer/customer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
 import { ManageCustomerComponent } from './manage-customer/manage-customer.component';
+import { LoginComponent } from './login/login.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
   {
     path: 'register',
     component:CustomerComponent,
+  },
+  {
+    path: 'login',
+    component:LoginComponent,
+  },
+  {
+    path: 'aboutPage',
+    component:AboutPageComponent,
   },
   
 ];
