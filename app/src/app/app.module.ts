@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent} from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -10,6 +10,7 @@ import { BookingComponent } from './booking/booking.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ManageCustomerComponent } from './manage-customer/manage-customer.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
+import { HttpResponse } from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
@@ -20,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatNativeDateModule,
     MatToolbarModule,
     HttpClientModule,
+    HttpResponse,
     FormsModule,
   ],
 
@@ -59,7 +62,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatToolbarModule,
   ],
   
-  providers: [],
+  providers: [
+      {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

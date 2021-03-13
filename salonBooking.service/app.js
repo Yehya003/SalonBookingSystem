@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+const cors = require('cors');
 //<------------ The DB & Dotenv ------------->
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -16,6 +16,20 @@ var appointmentRouter = require("./routes/appointment");
 //----------------------------------------
 
 var app = express();
+/*
+var originsWhitelist = [
+  'http://localhost:4200'    //this is my front-end url for development
+];
+
+var corsOptions = {
+  origin: function (origin, callback) {
+    var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+    callback(null, isWhitelisted);
+  },
+  credentials: true,
+};
+*/
+
 //----------------------------------------
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -29,10 +43,12 @@ app.use(express.static(path.join(__dirname, "public")));
 //<------------ Middlewares ------------->
 app.use(express.json());
 //<------------ Using The routes Middlewares ------------->
+app.use(cors());
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/appointment", appointmentRouter);
+
 
 //---------------------------------------------
 // catch 404 and forward to error handler
@@ -61,5 +77,4 @@ mongoose.connect(
 //--------------------------------------------
 //<------------ Middlewares ------------->
 app.use(express.json());
-
 module.exports = app;

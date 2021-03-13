@@ -11,6 +11,7 @@ const routes: Routes = [
     path: '',
     component:HomePageComponent,
   },
+  
   {
     path: 'manageCustomer',
     component:ManageCustomerComponent,
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'booking',
     component:BookingComponent,
+  },
+  {
+    path: 'register',
+    component:CustomerComponent,
   },
   
 ];

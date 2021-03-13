@@ -19,16 +19,20 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 1024,
   },
-  appointment: {
-    type: Array,
-    default: [],
-  },
+  appointment: 
+     [
+      {
+        appointmentDate: String,
+        name: String,
+        email: String,
+      },
+    ],
   
+
   admin: {
     type: Boolean,
     required: true,
     default: false,
   },
-  
 });
 module.exports = mongoose.model("User", userSchema);

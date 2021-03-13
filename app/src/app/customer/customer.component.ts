@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService } from '../admin.service';
 import { mergeMap } from 'rxjs/operators';
-import {Customer} from '../Customer';
+import { User } from 'src/User';
 
 @Component({
   selector: 'app-customer',
@@ -15,7 +15,8 @@ export class CustomerComponent implements OnInit {
   public errorMsg!: string;
   name!: string;
   email!: string;
-  contact!: string;
+  password!: string;
+  isAdmin!: boolean;
   
   constructor(public adminService: AdminService) { }
 
@@ -25,11 +26,11 @@ export class CustomerComponent implements OnInit {
   addCustomer() {
     this.successMsg = "";
     this.errorMsg = "";
-    this.adminService.addCustomer(this.name, this.email, this.contact)
-    .subscribe((addCustomer: Customer) => {
+    this.adminService.addCustomer(this.name, this.email, this.password, this.isAdmin)
+    .subscribe((addCustomer: User) => {
       this.name = '';
       this.email ='';
-      this.contact ='';
+      this.password ='';
       this.successMsg = 'Customer Added!';
     },
     (error: ErrorEvent) => {

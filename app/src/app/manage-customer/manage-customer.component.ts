@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService } from '../admin.service';
 import { mergeMap } from 'rxjs/operators';
-import {Customer} from '../Customer';
+
 import { stringify } from '@angular/compiler/src/util';
+import { User } from 'src/User';
 @Component({
   selector: 'app-manage-customer',
   templateUrl: './manage-customer.component.html',
@@ -13,14 +14,14 @@ export class ManageCustomerComponent implements OnInit {
   public successMsg!: string;
   public errorMsg!: string;
   public loading = true;
-  public customers: Customer[] = [];
-  public columns = ['name','email','contact','delete','update'];
+  public customers: User[] = [];
+  public columns = ['id', 'name','email', 'appointment','delete','update'];
   
   constructor(public adminService: AdminService) { }
 
   ngOnInit() {
     this.adminService.getAllCustomer()
-    .subscribe((customers:Customer[]) => {
+    .subscribe((customers:User[]) => {
       this.customers = customers;
       this.loading = false;
     },
@@ -36,7 +37,7 @@ export class ManageCustomerComponent implements OnInit {
     .pipe(
       mergeMap(() => this.adminService.getAllCustomer())
     )
-    .subscribe((customers: Customer[])=> {
+    .subscribe((customers: User[])=> {
       this.customers = customers;
       this.successMsg = 'Customer deleted sucssefully!'; 
     },
@@ -46,12 +47,12 @@ export class ManageCustomerComponent implements OnInit {
     
   }
 
-  updateCustomer(name: string, email: string, contact: string){
+  updateCustomer(name: string, email: string, appointment:[]){
     
     this.successMsg = '';
     this.errorMsg = '';
-    this.adminService.updateCustomer(name,email,contact)
-    .subscribe((updateCustomer: Customer)=>{
+    this.adminService.updateCustomer(name,email, appointment)
+    .subscribe((updateCustomer: User)=>{
       this.successMsg = 'Customer updated sucssefully!';
     },
     (error: ErrorEvent) => {
