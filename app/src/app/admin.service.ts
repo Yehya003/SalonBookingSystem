@@ -19,6 +19,7 @@ export class AdminService {
     addCustomer(name:string, email:string, password:string, isAdmin:boolean):Observable<User> {
        return this.http.post<User>(`${this.BASE_URL}/api/auth/register`, {name, email, password, isAdmin});
     }
+    
      signIn(email:string, password:string):Observable<User> {
          return this.http.post<User>(`${this.BASE_URL}/api/auth/login`, { email, password},
       {observe: 'response' as 'body'})

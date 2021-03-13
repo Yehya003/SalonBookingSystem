@@ -16,7 +16,6 @@ export class HomePageComponent implements OnInit {
   public errorMsg!: string;
   email!: string;
   password!: string;
-  loading: boolean;
   
   constructor(public adminService: AdminService) { }
 
