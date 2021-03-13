@@ -1,4 +1,3 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { User } from 'src/User';
@@ -23,23 +22,11 @@ export class HomePageComponent implements OnInit {
   }
   
   signIn() {
-
-   this.adminService.signIn(this.email, this.password).pipe(first())
-    .subscribe((data: HttpResponse<any>) => {
-      console.log(data.headers.get('token'));
-    },
-    error => {
-      this.loading = false;
-    });
+   this.adminService.signIn(this.email, this.password)
     
       this.email ='';
       this.password ='';
       this.successMsg = 'You are logged in!';
-    
-    (error: ErrorEvent) => {
-      this.errorMsg = error.error.message;
-      this.errorMsg = 'Wrong try again!'
-    });
     
   }
 }
