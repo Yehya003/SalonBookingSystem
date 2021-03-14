@@ -33,6 +33,24 @@ router.delete("/:userId", verify, async (req, res) => {
   }
 });
 
+router.put("/:userId", verify, async (req, res) => {
+  try {
+    const updatedUser = await User.updateOne(
+      { _id: req.user._id },
+      {
+        $set: { name: req.body.name },
+        $set: { email: req.body.email },
+        $set: { password: req.body.password },
+        $set: { admin: req.body.admin },
+      }
+    );
+    res.json(updatedUser);
+    
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
+
 router.delete("/admin/:userId", verify, async (req, res) => {
   try {
     const removedUser = await User.remove({ _id: req.params.userId });

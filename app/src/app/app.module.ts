@@ -9,7 +9,7 @@ import { BookingComponent } from './booking/booking.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ManageCustomerComponent } from './manage-customer/manage-customer.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -20,6 +20,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AuthInterceptor } from './AuthInterceptor';
+
 
 @NgModule({
   declarations: [
@@ -43,13 +45,10 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatNativeDateModule,
     MatToolbarModule,
     HttpClientModule,
-    
     FormsModule,
-  
   ],
 
   exports: [
-
     MatTableModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
@@ -59,10 +58,12 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatNativeDateModule,
     MatToolbarModule,
   ],
-  
+
   providers: [
-      {provide: LocationStrategy, useClass: HashLocationStrategy}
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+   
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

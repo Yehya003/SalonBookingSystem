@@ -42,8 +42,11 @@ router.post("/register", async (req, res) => {
   });
   try {
     const savedUser = await user.save();
-    res.status(200).send({ user: user._id });
-  } catch (err) { 
+    //res.status(200).send({ user: user._id });
+ let payload = {subject: user._id};
+ let token = jwt.sign(payload, process.env.TOKEN_SECRET);
+ res.status(200).send({token});
+  } catch (err) {
     res.status(400).send(err);
   }
 });
@@ -63,14 +66,26 @@ router.post("/login", async (req, res) => {
   );
   if (!validPassword) return res.status(400).send("Invalid password!").message;
   // Create and assign a token
-  const token = jwt.sign({ _id: theUser._id }, process.env.TOKEN_SECRET);
- //res.header("token", token);
- // res.status(200).header("token", token).send(token);
-  res.status(200).json({
-  idToken: token 
-  });
-//res.status(200).send().message; 
+  let payload =  { _id: theUser._id };
+  let token = jwt.sign(payload, process.env.TOKEN_SECRET);
+  res.status(200).send({ token });
 
+  /*
+  const token = jwt.sign({ _id: theUser._id }, process.env.TOKEN_SECRET, {
+    algorithm: "RS256",
+    expiresIn: 120,
+    subject: theUser._id,
+  });
+  res.status(200).send({token});
+
+  res.status(200).json({
+    idToken: token,
+    expiresIn: 120,
+  }).send();
+  //res.header("token", token);
+  // res.status(200).header("token", token).send(token);
+  //res.status(200).send().message;
+*/
 });
 
 module.exports = router;

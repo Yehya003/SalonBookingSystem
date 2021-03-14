@@ -5,15 +5,18 @@ import { HttpResponse } from '@angular/common/http';
 import { Appointment } from './Appointment';
 import { User } from 'src/User';
 import { map, tap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import * as moment from 'moment';
+import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root',
-})
+//  should be inside injectable 
+@Injectable({ providedIn: 'root' })
 export class AdminService {
   private BASE_URL = environment.BASE_URL;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private _router: Router) {}
 
   //-------------- Methods for customer----------------
 
@@ -23,70 +26,26 @@ export class AdminService {
     password: string,
     isAdmin: boolean
   ): Observable<User> {
-    return this.http.post<User>(`${this.BASE_URL}/api/auth/register`, {
+    return this.http.post<any>(`${this.BASE_URL}/api/auth/register`, {
       name,
       email,
       password,
       isAdmin,
     });
   }
-
+  
   signIn(email: string, password: string) {
-    this.http
-      .post<User>(
-        `${this.BASE_URL}/api/auth/login`,
-        { email, password },
-        { observe: 'response' }
-      )
-      .subscribe((response) => {
-        const keys = response.headers.keys();
-        const headers = keys.map(
-          (key) => `${key}: ${response.headers.get(key)}`
-        );
-
-        console.log(headers);
+    return this.http.post<any>(
+      `${this.BASE_URL}/api/auth/login`,
+      {
+        email,
+        password,
       });
-  }
-
-  /*
-  signIn(email: string, password: string) {
-    const headers = new HttpHeaders({
-      // 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      // 'Access-Control-Allow-Origin': '*'
-      'Content-Type': 'application/json;charset=ISO-8859-1',
-    });
-
-    const options = {
-      headers: headers,
-    };
-    this.http
-      .post(`${this.BASE_URL}/api/auth/login`, { email, password }, options)
-      .subscribe((data) => {
-        console.log(data + "heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-      });
-   
-    // For pass blob in API
-
-    return this.http
-      .get(`${this.BASE_URL}/api/auth/login`, {
-        headers: new HttpHeaders({
-          token: '{data}',
-          'Content-Type': 'application/json',
-        }),
-        responseType: 'blob',
-      })
-      .pipe(
-        tap(
-          // Log the result or error
-          (data) => console.log('You received data' + data),
-          (error) => console.log(error)
-        )
-      );
-  }
-*/
+   }
+  
 
   //-------------- --- Adminstrator -------------------
-  getAllCustomer(): Observable<User[]> {
+  getAllCustomer(): Observable<any[]> {
     return this.http.get<User[]>(`${this.BASE_URL}/api/users/`);
   }
 
@@ -97,12 +56,14 @@ export class AdminService {
   updateCustomer(
     name: string,
     email: string,
-    appointment: []
+    password: String,
+    admin:boolean
   ): Observable<User> {
-    return this.http.post<User>(`${this.BASE_URL}/api/users`, {
+    return this.http.post<any>(`${this.BASE_URL}/api/users/${id}/ChangeName`, {
       name,
       email,
-      appointment,
+      password,
+      admin,
     });
   }
 
@@ -140,3 +101,4 @@ export class AdminService {
     });
   }
 }
+

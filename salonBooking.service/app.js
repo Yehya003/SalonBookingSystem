@@ -4,6 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require('cors');
+const bodyParser = require("body-parser");
+
 //<------------ The DB & Dotenv ------------->
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -37,6 +39,7 @@ app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
