@@ -4,6 +4,7 @@ import { mergeMap } from 'rxjs/operators';
 
 import { stringify } from '@angular/compiler/src/util';
 import { User } from 'src/User';
+
 @Component({
   selector: 'app-manage-customer',
   templateUrl: './manage-customer.component.html',
@@ -15,11 +16,16 @@ export class ManageCustomerComponent implements OnInit {
   public errorMsg!: string;
   public loading = true;
   public customers: User[] = [];
-  public columns = ['id', 'name','email', 'appointment','delete'];
+  public columns = ['id', 'name','email', 'appointment','delete', 'update'];
   isAdmin!: boolean;
   name!: string;
   email!: string;
   password!: string;
+  userId!: string;
+  foo: (string)[] = [];
+  username!: string;
+  useremail!: string;
+   userpassword!: string;
   
   constructor(public adminService: AdminService) { }
 
@@ -51,24 +57,34 @@ export class ManageCustomerComponent implements OnInit {
     
   }
 
-  updateCustomer(){
+  updateCustomer(userId: string, username: string, useremail: string){
+    console.log(username, useremail, userId);
     this.successMsg = '';
     this.errorMsg = '';
-    this.adminService.updateCustomer(this.name,this.email,this.password, this.isAdmin)
-    .subscribe((updateCustomer: User)=>{
+    this.adminService.updateCustomer(userId,username,useremail)
+    .subscribe(()=>{
       this.successMsg = 'Customer updated sucssefully!';
     },
     (error: ErrorEvent) => {
       this.errorMsg = error.error.message;
     });
-    
   }
+  
+fillUpdateFields(userId: string ,name: string, email: string){
+let foo: (string)[] = [ userId ,name, email];
+this.foo = foo;
+foo = [];
+}
+
+getFoo(){
+  return this.foo;
+}
 
   addNewCustomer(){
     this.successMsg = '';
     this.errorMsg = '';
     this.adminService.adminAddCustomer(this.name,this.email, this.password, this.isAdmin)
-    .subscribe((adminAddCustomer: User)=>{
+    .subscribe(()=>{
       this.successMsg = 'Customer added sucssefully!';
     },
     (error: ErrorEvent) => {
@@ -76,5 +92,9 @@ export class ManageCustomerComponent implements OnInit {
     });
     
   }
+
+  isReply(): boolean { 
+  return true;
+}
 
 }

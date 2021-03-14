@@ -9,7 +9,7 @@ import { BookingComponent } from './booking/booking.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ManageCustomerComponent } from './manage-customer/manage-customer.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -28,6 +28,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
+import { AuthInterceptor } from './AuthInterceptor';
+
 
 @NgModule({
   declarations: [
@@ -59,13 +61,10 @@ import { UserHeaderComponent } from './user-header/user-header.component';
     MatCheckboxModule,
     MatToolbarModule,
     HttpClientModule,
-    
     FormsModule,
-  
   ],
 
   exports: [
-
     MatTableModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
@@ -76,10 +75,12 @@ import { UserHeaderComponent } from './user-header/user-header.component';
     MatNativeDateModule,
     MatToolbarModule,
   ],
-  
+
   providers: [
-      {provide: LocationStrategy, useClass: HashLocationStrategy}
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+   
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

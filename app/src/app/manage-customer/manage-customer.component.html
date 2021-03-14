@@ -25,10 +25,17 @@
       <th mat-header-cell *matHeaderCellDef> Delete </th>
       <td mat-cell *matCellDef="let customer"><button (click)="deleteCustomer(customer._id)" mat-raised-button color="warn">Delete</button></td>
     </ng-container>
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef> Update </th>
+      <td mat-cell *matCellDef="let customer"><button (click)= "fillUpdateFields(customer._id, customer.name, customer.email)"mat-raised-button  
+          color="warn">Get</button></td>
+          
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let customer; columns: columns"></tr>
   </table>
 </div>
+
 <div class="form-container">
 <h1>Add Customer:</h1>
   <form (submit)="addNewCustomer()">
@@ -41,29 +48,28 @@
     <mat-form-field>
       <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
     </mat-form-field>
-    <mat-checkbox
-       [(ngModel)]="isAdmin" name="isAdmin" class="checkIsAdmin">
-      <label>isAdmin</label>
+
+    <mat-checkbox [(ngModel)]="isAdmin" name="isAdmin" class="checkIsAdmin"
+       [checked]="true"> isAdmin
     </mat-checkbox>
-    <button mat-raised-button color="warn">Add</button>
+
+     <button mat-raised-button color="warn">Add</button>
   </form>
 </div>
-<div class="form-container">
+
+<div class="form-containers">
   <h1>Update Customer:</h1>
-  <form (submit)="updateCustomer()">
+  <script type="text/typescript">
+     let  foo: (string)[] = getfoo(); 
+  </script>
+  <form (submit)="updateCustomer(foo[0],username, useremail)" >
     <mat-form-field>
-      <input [(ngModel)]="name" name="name" matInput placeholder="Name">
+      <input [(ngModel)]="username" name="name" matInput placeholder= "Name:" [value] =  foo[1] >
     </mat-form-field>
     <mat-form-field>
-      <input [(ngModel)]="email" name="email" matInput placeholder="Email" type="email">
+      <input [(ngModel)]="useremail" name="email" type="email" matInput placeholder="Email:" [value] = foo[2] >
     </mat-form-field>
-    <mat-form-field>
-      <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
-    </mat-form-field>
-    <mat-checkbox [(ngModel)]="isAdmin" name="isAdmin" class="checkIsAdmin">
-      <label>isAdmin</label>
-    </mat-checkbox>
-    <button mat-raised-button color="warn">Update</button>
+    <button mat-raised-button color="warn"> Update</button>
   </form>
 </div>
 <app-footer></app-footer>

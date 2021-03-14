@@ -23,28 +23,27 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-
   signIn() {
-   this.adminService.signIn(this.email, this.password).subscribe(res => {
+    this.adminService.signIn(this.email, this.password).subscribe(
+      res => {
+        localStorage.setItem('token', res.token)
+      },
+      err => console.log(err)
+    ) 
+  
     if (this.isAdmin = true){
-
-      console.log(res);
-      this.email ='';
-      this.password ='';
-      this.successMsg = 'You are logged in!';
-      this.router.navigate(['/manageCustomer']);
+      this.email = '';
+    this.password = '';
+    this.successMsg = 'You are logged in!';
+     this.router.navigate(['/manageCustomer']);
 
 
     } else {
-
-      console.log(res);
-      this.email ='';
-      this.password ='';
-      this.successMsg = 'You are logged in!';
+      this.email = '';
+      this.password = '';
+      this.successMsg = 'You are NOT logged in!';
       this.router.navigate(['/booking']);
     } 
-    
-    });
     
   }
 
