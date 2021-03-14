@@ -50,9 +50,9 @@ export class AdminService {
 
   signIn(email: string, password: string) {
     const headers = new HttpHeaders({
-       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-       'Access-Control-Allow-Origin': '*',
-       //'Content-Type': 'application/json;charset=ISO-8859-1'
+       //'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+       //'Access-Control-Allow-Origin': '*',
+       'Content-Type': 'application/json;charset=ISO-8859-1'
     });
 
     const options = {
@@ -62,7 +62,7 @@ export class AdminService {
       .post(`${this.BASE_URL}/api/auth/login`, { email, password }, options)
       .pipe(
         map (res => {
-          return{ status: res.toString, data: res.toString};
+          return{ status: res, data: res};
         })
       );
   }
@@ -108,6 +108,20 @@ export class AdminService {
     return this.http.get<User[]>(`${this.BASE_URL}/api/users/`);
   }
 
+  adminAddCustomer(
+    name: string,
+    email: string,
+    password: string,
+    isAdmin: boolean
+  ): Observable<User> {
+    return this.http.post<User>(`${this.BASE_URL}/api/auth/register`, {
+      name,
+      email,
+      password,
+      isAdmin,
+    });
+  }
+
   deleteCustomer(id: string): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/api/users/admin/${id}/`);
   }
@@ -115,12 +129,16 @@ export class AdminService {
   updateCustomer(
     name: string,
     email: string,
-    appointment: []
+    password: string,
+    isAdmin: boolean
+    //appointment: []
   ): Observable<User> {
     return this.http.post<User>(`${this.BASE_URL}/api/users`, {
       name,
       email,
-      appointment,
+      password,
+      isAdmin
+      //appointment,
     });
   }
 
@@ -131,6 +149,18 @@ export class AdminService {
   }
 
   createAppointment(
+    appointmentDate: string,
+    name: string,
+    email: string
+  ): Observable<Appointment> {
+    return this.http.post<Appointment>(`${this.BASE_URL}/appointments`, {
+      appointmentDate,
+      name,
+      email,
+    });
+  }
+
+  adminCreateAppointment(
     appointmentDate: string,
     name: string,
     email: string

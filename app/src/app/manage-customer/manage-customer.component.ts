@@ -15,7 +15,11 @@ export class ManageCustomerComponent implements OnInit {
   public errorMsg!: string;
   public loading = true;
   public customers: User[] = [];
-  public columns = ['id', 'name','email', 'appointment','delete','update'];
+  public columns = ['id', 'name','email', 'appointment','delete'];
+  isAdmin!: boolean;
+  name!: string;
+  email!: string;
+  password!: string;
   
   constructor(public adminService: AdminService) { }
 
@@ -47,13 +51,25 @@ export class ManageCustomerComponent implements OnInit {
     
   }
 
-  updateCustomer(name: string, email: string, appointment:[]){
-    
+  updateCustomer(){
     this.successMsg = '';
     this.errorMsg = '';
-    this.adminService.updateCustomer(name,email, appointment)
+    this.adminService.updateCustomer(this.name,this.email,this.password, this.isAdmin)
     .subscribe((updateCustomer: User)=>{
       this.successMsg = 'Customer updated sucssefully!';
+    },
+    (error: ErrorEvent) => {
+      this.errorMsg = error.error.message;
+    });
+    
+  }
+
+  addNewCustomer(){
+    this.successMsg = '';
+    this.errorMsg = '';
+    this.adminService.adminAddCustomer(this.name,this.email, this.password, this.isAdmin)
+    .subscribe((adminAddCustomer: User)=>{
+      this.successMsg = 'Customer added sucssefully!';
     },
     (error: ErrorEvent) => {
       this.errorMsg = error.error.message;

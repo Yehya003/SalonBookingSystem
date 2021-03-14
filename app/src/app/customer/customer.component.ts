@@ -24,9 +24,6 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
   }
 
-  openToggle() {
-    this.router.navigate(['/login']);
-}
   
   addCustomer() {
     this.successMsg = "";
@@ -37,6 +34,7 @@ export class CustomerComponent implements OnInit {
       this.email ='';
       this.password ='';
       this.successMsg = 'Customer Added!';
+      this.router.navigate(['/login']);
     },
     (error: ErrorEvent) => {
       this.errorMsg = error.error.message;

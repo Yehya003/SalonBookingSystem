@@ -3,7 +3,6 @@
 <mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
 
 <div class="form-container">
-
     <form (submit)="addCustomer()">
       <mat-form-field>
         <input [(ngModel)]="name" name="name" matInput placeholder="Name">
@@ -14,7 +13,7 @@
       <mat-form-field>
         <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
       </mat-form-field>
-      <button mat-raised-button color="primary" (submit)="openToggle()">Sign Up</button>
+      <button mat-raised-button color="primary">Sign Up</button>
     </form>
   </div>
   <app-footer></app-footer>

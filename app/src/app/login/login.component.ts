@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   public errorMsg!: string;
   email!: string;
   password!: string;
+  isAdmin: boolean = false;
   
   
   constructor(public adminService: AdminService, private router: Router) { }
@@ -22,16 +23,27 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  openToggle() {
-    this.router.navigate(['/booking']);
-}
 
   signIn() {
    this.adminService.signIn(this.email, this.password).subscribe(res => {
+    if (this.isAdmin = true){
+
       console.log(res);
       this.email ='';
       this.password ='';
       this.successMsg = 'You are logged in!';
+      this.router.navigate(['/manageCustomer']);
+
+
+    } else {
+
+      console.log(res);
+      this.email ='';
+      this.password ='';
+      this.successMsg = 'You are logged in!';
+      this.router.navigate(['/booking']);
+    } 
+    
     });
     
   }

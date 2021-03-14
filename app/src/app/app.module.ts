@@ -24,6 +24,8 @@ import { FooterComponent } from './footer/footer.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { LoginComponent } from './login/login.component';
     AboutPageComponent,
     HeaderComponent,
     LoginComponent,
+    AdminHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     MatToolbarModule,
     HttpClientModule,
     
@@ -63,6 +67,7 @@ import { LoginComponent } from './login/login.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,

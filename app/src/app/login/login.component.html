@@ -1,4 +1,12 @@
 <app-header></app-header>
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+
 <!-- SIgn in button -->
 <mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
 <mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
@@ -12,7 +20,10 @@
         <mat-form-field>
             <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
         </mat-form-field>
-        <button mat-raised-button color="primary" (submit)="openToggle()">Sign in</button>
+        <button mat-raised-button color="primary">Sign in</button>
+        
     </form>
 </div>
+</body>
+</html>
 <app-footer></app-footer>

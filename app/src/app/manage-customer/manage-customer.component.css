@@ -2,3 +2,21 @@ table {
     margin-top: 50px;
     width: 100%;
   }
+  .form-container {
+    margin-top: 50px;
+    max-width: 100px;
+  }
+  form {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .error {
+    background-color: #d84f4f;
+    padding: 10px;
+  }
+  
+  .success {
+    background-color: #73cc73;
+    padding: 10px;
+  }
