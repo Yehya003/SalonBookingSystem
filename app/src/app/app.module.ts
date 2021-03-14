@@ -26,6 +26,8 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { LogoutComponent } from './logout/logout.component';
+import { UserHeaderComponent } from './user-header/user-header.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     HeaderComponent,
     LoginComponent,
     AdminHeaderComponent,
+    LogoutComponent,
+    UserHeaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,11 @@ const routes: Routes = [
     path: '',
     component:HomePageComponent,
   },
+
+  {
+    path: 'logout',
+    component:HomePageComponent,
+  },
   
   {
     path: 'manageCustomer',
