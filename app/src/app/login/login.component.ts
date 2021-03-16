@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
   
     if (this.isAdmin === true){
       this.email = '';
-    this.password = '';
-    this.successMsg = 'You are logged in!';
-     this.router.navigate(['/manageCustomer']);
+      this.password = '';
+      this.successMsg = 'You are logged in!';
+      this.router.navigate(['/manageCustomer']);
 
 
     } else {
