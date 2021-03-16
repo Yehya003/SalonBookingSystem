@@ -11,12 +11,11 @@ import { catchError, retry } from 'rxjs/operators';
 //import * as moment from 'moment';
 import { Router } from '@angular/router';
 
-//  should be inside injectable 
+//  should be inside injectable
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private BASE_URL = environment.BASE_URL;
-  constructor(private http: HttpClient,
-    private _router: Router) {}
+  constructor(private http: HttpClient, private _router: Router) {}
 
   //-------------- Methods for customer----------------
 
@@ -33,16 +32,13 @@ export class AdminService {
       isAdmin,
     });
   }
-  
+
   signIn(email: string, password: string) {
-    return this.http.post<any>(
-      `${this.BASE_URL}/api/auth/login`,
-      {
-        email,
-        password,
-      });
-   }
-  
+    return this.http.post<any>(`${this.BASE_URL}/api/auth/login`, {
+      email,
+      password,
+    });
+  }
 
   //-------------- --- Adminstrator -------------------
   getAllCustomer(): Observable<any[]> {
@@ -68,9 +64,9 @@ export class AdminService {
   }
 
   updateCustomer(
-    userId:string,
+    userId: string,
     name: string,
-    email: string,
+    email: string
     //appointment: []
   ): Observable<User> {
     return this.http.put<User>(`${this.BASE_URL}/api/users/${userId}/`, {
@@ -79,51 +75,56 @@ export class AdminService {
       //appointment,
     });
   }
-
+  //--------------------------------------------------------------------------
   // methods for booking
-
-  getAppointments(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(`${this.BASE_URL}/appointments`);
-  }
 
   createAppointment(
     appointmentDate: string,
     name: string,
     email: string
   ): Observable<Appointment> {
-    return this.http.post<Appointment>(`${this.BASE_URL}/appointments`, {
+    return this.http.post<Appointment>(`${this.BASE_URL}/api/appointment/`, {
       appointmentDate,
       name,
       email,
     });
   }
+  //----------------------------------------------------------------------------
+  // ADMIN
+  getAppointments(): Observable<any[]> {
+    return this.http.get<User[]>(`${this.BASE_URL}/api/appointment/admin/all`);
+  }
 
+  // pass appointmenDate, name & email
   adminCreateAppointment(
     appointmentDate: string,
     name: string,
     email: string
-  ): Observable<Appointment> {
-    return this.http.post<Appointment>(`${this.BASE_URL}/appointments`, {
+  ): Observable<User> {
+    return this.http.post<User>(`${this.BASE_URL}/api/appointment/admin`, {
       appointmentDate,
       name,
       email,
     });
   }
 
+  //pass appointmentId & userId in the body
   cancelAppointment(id: string): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/appointments/${id}`);
+    return this.http.delete(`${this.BASE_URL}/api/appointment/admin/${id}`);
   }
 
+  // userId, appointmentId, appointmentDate in the body
   updateAppointment(
+    userId: string,
+    appointmentId: string,
     appointmentDate: string,
-    name: string,
-    email: string
-  ): Observable<Appointment> {
-    return this.http.post<Appointment>(`${this.BASE_URL}/appointments`, {
-      appointmentDate,
-      name,
-      email,
-    });
+  ): Observable<User> {
+    return this.http.patch<User>(
+      `${this.BASE_URL}/api/appointment/admin${userId}`,
+      {
+        appointmentId,
+        appointmentDate,
+      }
+    );
   }
 }
-

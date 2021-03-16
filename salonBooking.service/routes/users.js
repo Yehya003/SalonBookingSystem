@@ -41,7 +41,6 @@ router.put("/:userId", verify, async (req, res) => {
     email: req.body.email
     }
         console.log(req.params.userId , update);
-
     const updatedUser = await User.updateOne(
       { _id: id },update
     );
