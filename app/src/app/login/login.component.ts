@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       err => console.log(err)
     ) 
   
-    if (this.isAdmin = true){
+    if (this.isAdmin === true){
       this.email = '';
     this.password = '';
     this.successMsg = 'You are logged in!';
