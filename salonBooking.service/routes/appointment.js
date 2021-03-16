@@ -28,7 +28,7 @@ router.get("/admin/all", async (req, res, next) => {
   try {
     //,{"restaurant_id" : 1,"name":1,"borough":1,"cuisine" :1,"_id":0}
     const allAppointment = await User.find(
-      {},{"appointment":1,"_id":0}
+      //{},{"appointment":1,"_id":0}
     ); //, { appointmentDate, name, email }
     
     res.json(allAppointment);
