@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { HttpResponse } from '@angular/common/http';
-import { Appointment } from './Appointment';
 import { User } from 'src/User';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { shareReplay } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 //import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { Appointment } from './Appointment';
 
 //  should be inside injectable
 @Injectable({ providedIn: 'root' })
@@ -82,8 +82,8 @@ export class AdminService {
     appointmentDate: string,
     name: string,
     email: string
-  ): Observable<Appointment> {
-    return this.http.post<Appointment>(`${this.BASE_URL}/api/appointment/`, {
+  ): Observable<User> {
+    return this.http.post<any>(`${this.BASE_URL}/api/appointment/`, {
       appointmentDate,
       name,
       email,
@@ -93,7 +93,10 @@ export class AdminService {
   // ADMIN
   getAppointments(): Observable<any[]> {
     return this.http.get<User[]>(`${this.BASE_URL}/api/appointment/admin/all`);
+      
+        
   }
+    
 
   // pass appointmenDate, name & email
   adminCreateAppointment(
@@ -101,7 +104,7 @@ export class AdminService {
     name: string,
     email: string
   ): Observable<User> {
-    return this.http.post<User>(`${this.BASE_URL}/api/appointment/admin`, {
+    return this.http.post<any>(`${this.BASE_URL}/api/appointment/admin`, {
       appointmentDate,
       name,
       email,

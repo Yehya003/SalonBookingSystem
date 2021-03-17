@@ -34,6 +34,7 @@ export class ManageCustomerComponent implements OnInit {
     .subscribe((customers:User[]) => {
       this.customers = customers;
       this.loading = false;
+      console.log(this.customers);
     },
     (error: ErrorEvent) => {
       this.errorMsg = error.error.message;

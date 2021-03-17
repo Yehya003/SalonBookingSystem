@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Appointment } from '../Appointment';
 import {AdminService } from '../admin.service';
+import { User } from 'src/User';
+import { Appointment } from '../Appointment';
 
 @Component({
   selector: 'app-booking',
@@ -24,12 +25,12 @@ export class BookingComponent implements OnInit {
     this.successMsg = '';
     this.errorMsg = '';
     this.adminService.createAppointment(this.appointmentDate, this.name, this.email)
-      .subscribe((createdAppointment: Appointment) => {
+      .subscribe((createdAppointment: User) => {
         this.appointmentDate = '';
         this.name = '';
         this.email = '';
-        const appointmentDate = new Date(createdAppointment.appointmentDate).toDateString();
-        this.successMsg = `Appointment Booked Successfully for ${appointmentDate}`;
+        //const appointmentDate = new Date(createdAppointment.appointmentDate).toDateString();
+        this.successMsg = `Appointment Booked Successfully for`;
       },
       (error: ErrorEvent) => {
         this.errorMsg = error.error.message;
