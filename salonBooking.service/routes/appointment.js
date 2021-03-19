@@ -3,34 +3,43 @@ var router = express.Router();
 const User = require("../model/User");
 const verify = require("./verifyToken");
 
-
 // ------------------CUSTOMER METHODS-----------------------
-router.post("/:userId", async (req, res) => {
+router.post( "/createAppointment",verify,async (req, res) => {
   try {
+    console.log(
+      req.body.appointment.appointmentId,
+      req.body.appointment.appointmentDate,
+      req.user._id,
+    );
+    let id = req.user._id;
     var theAppointment = {
-      appointmentDate: req.body.appointmentDate,
-      name: req.body.name,
-      email: req.body.email,
+      appointmentId: req.body.appointment.appointmentId,
+      appointmentDate: req.body.appointment.appointmentDate,
+      name: req.body.appointment.name,
+      email: req.body.appointment.email,
     };
+    //
     const createdAppointment = await User.updateOne(
-      { _id: req.params._userId },
-      { $push: { appointment: theAppointment } }
+      { _id: id },
+      { $set: { appointment: theAppointment } },
+      { new: true }
     );
     res.json(createdAppointment);
   } catch (error) {
     res.json({ message: error });
   }
-}); 
+});
 
 // ------------------ ADMIN METHODS-----------------------
-// get all the appointments 
+// get all the appointments
 router.get("/admin/all", async (req, res, next) => {
   try {
     //,{"restaurant_id" : 1,"name":1,"borough":1,"cuisine" :1,"_id":0}
-    const allAppointment = await User.find(
+    const allAppointment = await User
+      .find
       //{},{"appointment":1,"_id":0}
-    ); //, { appointmentDate, name, email }
-    
+      (); //, { appointmentDate, name, email }
+
     res.json(allAppointment);
   } catch (error) {
     res.json({ message: error });
@@ -39,7 +48,7 @@ router.get("/admin/all", async (req, res, next) => {
 
 // get a specific appointment using the user id -- unfinished
 // pass userId in the body
-router.get("/admin/:userId", verify,async (req, res) => {
+router.get("/admin/:userId", verify, async (req, res) => {
   try {
     const specificAppointment = await User.findById(req.body.userId);
     res.json(specificAppointment);
@@ -49,12 +58,21 @@ router.get("/admin/:userId", verify,async (req, res) => {
 });
 
 // delete a specific appointment
-//pass appointmentId & userId in the body  
+//pass appointmentId & userId in the body
 router.delete("/admin/:userId", verify, async (req, res) => {
   try {
+
+ var theAppointment = {
+   appointment: {
+     appointmentId: 0,
+     appointmentDate: "0 - 0",
+     name: "0 - 0",
+     email: "0 - 0",
+   },
+ };
     const appointment = await User.findOneAndUpdate(
-      { _id: req.body.userId },
-      { $pull: { appointment: { _id: req.body.appointmentId } } },
+      { _id: req.params.userId },
+      { $set: { appointment:  theAppointment } },
       { new: true },
       function (err) {
         if (err) {
@@ -71,38 +89,49 @@ router.delete("/admin/:userId", verify, async (req, res) => {
 // update an appointment
 // userId, appointmentId, appointmentDate in the body
 
-router.patch("/admin/:userId", verify,async (req, res) => {
+router.patch("/admin/:userId", verify, async (req, res) => {
   try {
     const updatedAppointment = await User.findOneAndUpdate(
-      { _id: req.body.userId, "appointment._id": req.body.appointmentId },
-      { $set: { "appointment.$.appointmentDate": req.body.appointmentDate } },
+      {
+        _id: req.body.userId,
+        "appointment.appointmentId": req.body.appointment.appointmentId,
+      },
+      {
+        $set: {
+          "appointment.appointmentDate": req.body.appointment.appointmentDate,
+        },
+      },
       function (err, doc) {}
     );
+    console.log(updatedAppointment);
     res.json(updatedAppointment);
   } catch (error) {
     res.json({ message: error });
   }
 });
 // create appointment
-// pass usedId,appointmenDate, name & email
-router.post("/admin/:userId", verify,async (req, res) => {
+// pass userId,appointmentId,appointmenDate, name & email
+router.put("/admin/:userId", verify, async (req, res) => {
   try {
+   
+    let id = req.body.userId;
+   
     var theAppointment = {
-      appointmentDate: req.body.appointmentDate,
-      name: req.body.name,
-      email: req.body.email,
+      appointment: {
+        appointmentId: req.body.appointment.appointmentId,
+        appointmentDate: req.body.appointment.appointmentDate,
+        name: req.body.appointment.name,
+        email: req.body.appointment.email,
+      },
+      
     };
-    const createdAppointment = await User.updateOne(
-      { _id: req.body.userId },
-      { $push: { appointment: theAppointment } }
-    );
+    console.log(theAppointment);
+    // { $push: theAppointment }
+    const createdAppointment = await User.updateOne({ _id: id }, theAppointment);
     res.json(createdAppointment);
   } catch (error) {
     res.json({ message: error });
   }
 });
-
-
-
 
 module.exports = router;

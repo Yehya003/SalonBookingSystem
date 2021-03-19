@@ -6,36 +6,42 @@ import { Appointment } from '../Appointment';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.css']
+  styleUrls: ['./booking.component.css'],
 })
 export class BookingComponent implements OnInit {
-
-  public successMsg!: string; 
+  public successMsg!: string;
   public errorMsg!: string;
-   appointmentDate!: string; 
-   name!: string;
-   email!: string;
+  appointmentId!: number;
+  appointmentDate!: string;
+  name!: string;
+  email!: string;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   createAppointment() {
     this.successMsg = '';
     this.errorMsg = '';
-    this.adminService.createAppointment(this.appointmentDate, this.name, this.email)
-      .subscribe((createdAppointment: User) => {
-        this.appointmentDate = '';
-        this.name = '';
-        this.email = '';
-        //const appointmentDate = new Date(createdAppointment.appointmentDate).toDateString();
-        this.successMsg = `Appointment Booked Successfully for`;
-      },
-      (error: ErrorEvent) => {
-        this.errorMsg = error.error.message;
-      });
+    this.adminService
+      .createAppointment(
+        this.appointmentId,
+        this.appointmentDate,
+        this.name,
+        this.email,
+      )
+      .subscribe(
+        (createdAppointment: User) => {
+          this.appointmentId = 0;
+          this.appointmentDate = '';
+          this.name = '';
+          this.email = '';
+          //const appointmentDate = new Date(createdAppointment.appointmentDate).toDateString();
+          this.successMsg = `Appointment Booked Successfully for`;
+        },
+        (error: ErrorEvent) => {
+          this.errorMsg = error.error.message;
+        }
+      );
   }
-
-
 }

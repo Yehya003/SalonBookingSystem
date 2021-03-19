@@ -15,47 +15,55 @@ export class ManageBookingComponent implements OnInit {
   public loading = true;
   public appointments: User[] = [];
   public theAppointments: string[] = [];
-  public  items = [];
-  public columns = ['UserId', 'appointmentId', 'appointmentDate', 'name', 'cancel', 'update'];
-
-  /* 'appointmentDate',
+  public rows: User[] = [];
+  public columns = [
+    'UserId',
+    'appointmentId',
+    'appointmentDate',
     'name',
-    'email',*/
+    'email',
+    'cancel',
+    'update',
+  ];
 
   foo: string[] = [];
+  userId!: string;
   appointmentDate!: string;
-  appointmentDates!: string;
-  appointmentId!: string;
+  appointmentId!: number;
   name!: string;
   email!: string;
   stringifiedData: any;
   parsedJson: any;
-  constructor(public adminService: AdminService) { }
+  constructor(public adminService: AdminService) {}
 
   ngOnInit() {
     this.adminService.getAppointments().subscribe(
       (appointments: User[]) => {
-        let items = [];
+        this.appointments = appointments;
+
+        /*let rows = [];
         for (const key in appointments) {
           if (appointments.hasOwnProperty(key)) {
-            items.push(appointments[key]);
+            rows.push(appointments[key]);
           }
         }
-                  console.log(items[3]);
-          console.log(items[3].appointment[0]._id);
-          console.log(items[3].appointment[0].appointmentDate);
-          console.log(items[3].appointment[0].email);
-          console.log(items[3].appointment[0].name);
 
+        this.rows = rows;
+        console.log(this.rows[3]);
+        console.log(this.rows[3].appointment[0]._id);
+        console.log(this.rows[3].appointment[0].appointmentDate);
+        console.log(this.rows[3].appointment[0].email);
+        console.log(this.rows[3].appointment[0].name);
+        */
 
-          //console.log(appointments);
-          // Convert to JSON
-          //this.stringifiedData = JSON.stringify(appointments);
+        //console.log(appointments);
+        // Convert to JSON
+        //this.stringifiedData = JSON.stringify(appointments);
 
-          /*console.log('With Stringify=', this.stringifiedData);
+        /*console.log('With Stringify=', this.stringifiedData);
            let myObj = '{"data":' + this.stringifiedData + '}';
            this.parsedJson = JSON.parse(myObj)*/
-          /*
+        /*
           let theData = JSON.stringify(this.parsedJson);
           theData = theData.replace(/[\{}"[\]]/g, '') ;
                   console.log('after fixing :', theData);
@@ -67,7 +75,7 @@ export class ManageBookingComponent implements OnInit {
                     'AppointmentDate ==> ' + appointmentDate + 'theId ==> ' + id
                   );
                 */
-          /*
+        /*
           var i, j, x = "";
           for (i in this.parsedJson.data) {
             x += "<h2>" + this.parsedJson.data[i].name + "</h2>";
@@ -76,32 +84,31 @@ export class ManageBookingComponent implements OnInit {
             }
           */
 
-          // this.parsedJson = JSON.parse(myObj);
-          /* console.log('With Parsed JSON :', this.parsedJson);
+        // this.parsedJson = JSON.parse(myObj);
+        /* console.log('With Parsed JSON :', this.parsedJson);
            
            for(var i=0;i<appointments.length;i++){
              this.parsedJson = JSON.parse(myObj).data[i].appointment;
            console.log("HERE WE ARE "+i+ this.parsedJson);
            }*/
 
-
-          /*var x;
+        /*var x;
           x = JSON.stringify(appointments);
           x = "[" + x.replace(/[\[\]]/g, "") + "]";
           return JSON.parse(x);
   */
 
-          //this.appointments = appointments;
+        //this.appointments = appointments;
 
-          // var  data = this.appointments.indexOf(1);
-          console.log(this.appointments);
-          
-          this.loading = false;
-        },
-        (error: ErrorEvent) => {
-          this.errorMsg = error.error.message;
-          this.loading = false;
-        }
+        // var  data = this.appointments.indexOf(1);
+        //console.log(this.appointments);
+
+        this.loading = false;
+      },
+      (error: ErrorEvent) => {
+        this.errorMsg = error.error.message;
+        this.loading = false;
+      }
     );
   }
 
@@ -120,18 +127,22 @@ export class ManageBookingComponent implements OnInit {
       );
   }
 
-  editAppointment(
-    userId: string,
-    appointmentId: string,
-    appointmentDate: string
-  ) {
+  editAppointment(userId: string) {
+    console.log(
+      'THE VALUE OF EDIT METHOD' + this.userId,
+      this.appointmentId,
+      this.appointmentDate
+    );
     this.successMsg = '';
     this.errorMsg = '';
     this.adminService
-      .updateAppointment(userId, appointmentId, appointmentDate)
+      .updateAppointment(userId, this.appointmentId, this.appointmentDate)
       .subscribe(
         (editAppointments: User) => {
           this.successMsg = 'Successfully updated appointment';
+          this.userId = '';
+          this.appointmentId = 0;
+          this.appointmentDate = '';
         },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;
@@ -139,12 +150,8 @@ export class ManageBookingComponent implements OnInit {
       );
   }
 
-  fillUpdateFields(
-    userId: string,
-    appointmentId: string,
-    appointmentDate: string
-  ) {
-    let foo: string[] = [userId, appointmentId, appointmentDate];
+  fillUpdateFields(userId: string, appointmentId: string, appointmentDate: string, name: string, email: string) {
+    let foo: string[] = [userId, appointmentId, appointmentDate, name, email];
     this.foo = foo;
     foo = [];
   }
@@ -153,14 +160,33 @@ export class ManageBookingComponent implements OnInit {
     return this.foo;
   }
 
-  addNewBooking() {
+  addNewBooking(userId: string) {
+    console.log(
+      'THE VALUE OF ADD METHOD' + this.userId,
+      this.appointmentId,
+      this.appointmentDate,
+      this.name,
+      this.email
+    );
+
     this.successMsg = '';
     this.errorMsg = '';
     this.adminService
-      .adminCreateAppointment(this.appointmentDate, this.name, this.email)
+      .adminCreateAppointment(
+        userId,
+        this.appointmentId,
+        this.appointmentDate,
+        this.name,
+        this.email
+      )
       .subscribe(
         (adminAddCustomer: User) => {
           this.successMsg = 'Booking added sucssefully!';
+          this.userId = '';
+          this.appointmentId = 0;
+          this.appointmentDate = '';
+          this.name = '';
+          this.email = '';
         },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;
@@ -168,4 +194,3 @@ export class ManageBookingComponent implements OnInit {
       );
   }
 }
-

@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 function verifyingToken(req, res, next) {
   
@@ -13,7 +13,25 @@ function verifyingToken(req, res, next) {
   }
 };
 
-module.exports =  verifyingToken;
+/*
+function verifyingToken(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(401).send("Unauthorized request");
+  }
+  let token = req.headers.authorization.split(" ")[1];
+  if (token === "null") {
+    return res.status(401).send("IN this"+"Unauthorized request");
+  }
+  let payload = jwt.verify(token, process.env.TOKEN_SECRET);
+  
+  if (!payload) {
+    return res.status(401).send("Unauthorized request");
+  }
+  req.userId = payload.subject;
+  next();
+}
+*/
+module.exports = verifyingToken;
 /*
 if (!req.headers.authorization) {
     return res.status(401).send("Unauthorized request");

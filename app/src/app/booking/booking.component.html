@@ -5,6 +5,9 @@
 
   <form (submit)="createAppointment()">
     <mat-form-field>
+      <input [(ngModel)]="appointmentId" name="appointmentId" matInput placeholder="AppointmentId">
+    </mat-form-field>
+    <mat-form-field>
       <input [(ngModel)]="appointmentDate" name="appointmentDate" matInput [matDatepicker]="picker" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
