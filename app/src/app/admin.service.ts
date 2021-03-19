@@ -15,6 +15,7 @@ import { Appointment } from './Appointment';
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private BASE_URL = environment.BASE_URL;
+  tst: [] = [];
   constructor(private http: HttpClient, private _router: Router) {}
 
   //-------------- Methods for customer----------------
@@ -49,7 +50,7 @@ export class AdminService {
     name: string,
     email: string,
     password: string,
-    isAdmin: boolean
+    isAdmin: boolean,
   ): Observable<User> {
     return this.http.post<User>(`${this.BASE_URL}/api/auth/register`, {
       name,
@@ -92,9 +93,7 @@ export class AdminService {
   //----------------------------------------------------------------------------
   // ADMIN
   getAppointments(): Observable<any[]> {
-    return this.http.get<User[]>(`${this.BASE_URL}/api/appointment/admin/all`);
-      
-        
+    return this.http.get<User[]>(`${this.BASE_URL}/api/appointment/admin/all`);    
   }
     
 

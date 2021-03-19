@@ -15,7 +15,7 @@ export class ManageBookingComponent implements OnInit {
   public loading = true;
   public appointments: User[] = [];
   public theAppointments: string[] = [];
-  public  items = [];
+  public  items: User[] = [];
   public columns = ['UserId', 'appointmentId', 'appointmentDate', 'name', 'cancel', 'update'];
 
   /* 'appointmentDate',
@@ -35,17 +35,21 @@ export class ManageBookingComponent implements OnInit {
   ngOnInit() {
     this.adminService.getAppointments().subscribe(
       (appointments: User[]) => {
+        //this.appointments = appointments;
+        
         let items = [];
         for (const key in appointments) {
           if (appointments.hasOwnProperty(key)) {
             items.push(appointments[key]);
+            //this.appointments = items;
+            this.items = appointments;
           }
         }
-                  console.log(items[3]);
+         /*         console.log(items[3]);
           console.log(items[3].appointment[0]._id);
           console.log(items[3].appointment[0].appointmentDate);
           console.log(items[3].appointment[0].email);
-          console.log(items[3].appointment[0].name);
+          console.log(items[3].appointment[0].name);*/
 
 
           //console.log(appointments);
