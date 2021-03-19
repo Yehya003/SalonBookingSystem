@@ -18,8 +18,8 @@
       <td mat-cell *matCellDef="let customer"> {{ customer.email }} </td>
     </ng-container>
     <ng-container matColumnDef="appointment">
-        <th mat-header-cell *matHeaderCellDef> appointment </th>
-        <td mat-cell *matCellDef="let customer"> {{ customer.appointment }} </td>
+        <th mat-header-cell *matHeaderCellDef> Appointment Date </th>
+        <td mat-cell *matCellDef="let customer"> {{ customer.appointment.appointmentDate | date:'dd/MM/yyyy' }} </td>
       </ng-container>
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef> Delete </th>
@@ -48,7 +48,6 @@
     <mat-form-field>
       <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
     </mat-form-field>
-
     <mat-checkbox [(ngModel)]="isAdmin" name="isAdmin" class="checkIsAdmin"
        [checked]="true"> isAdmin
     </mat-checkbox>

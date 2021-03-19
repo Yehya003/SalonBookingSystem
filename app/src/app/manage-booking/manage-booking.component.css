@@ -4,11 +4,11 @@ table {
   }
   .form-container {
     margin-top: 50px;
-    max-width: 100px;
+    max-width: 300px;
   }
   form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
   
   .error {

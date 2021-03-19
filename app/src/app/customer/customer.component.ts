@@ -18,6 +18,9 @@ export class CustomerComponent implements OnInit {
   email!: string;
   password!: string;
   isAdmin!: boolean;
+  appointmentId!: number;
+  appointmentDate!:string;
+  
   
   constructor(public adminService: AdminService, private router: Router) { }
 
@@ -28,7 +31,8 @@ export class CustomerComponent implements OnInit {
   addCustomer() {
     this.successMsg = "";
     this.errorMsg = "";
-    this.adminService.addCustomer(this.name, this.email, this.password, this.isAdmin)
+    
+    this.adminService.addCustomer(this.name, this.email, this.password, this.isAdmin, this.appointmentId, this.appointmentDate)
     .subscribe((addCustomer: User) => {
       this.name = '';
       this.email ='';

@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 //<------------ The routes ------------->
-var indexRouter = require("./routes/appointment");
+//var indexRouter = require("./routes/appointment");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
 var appointmentRouter = require("./routes/appointment");
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 //<------------ Using The routes Middlewares ------------->
 app.use(cors());
-app.use("/", indexRouter);
+//app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/appointment", appointmentRouter);

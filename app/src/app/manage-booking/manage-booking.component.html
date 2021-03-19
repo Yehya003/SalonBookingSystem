@@ -5,42 +5,26 @@
 
 <div *ngIf="!loading && !errorMsg">
 
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th>ID</th>
-      <th>DATE</th>
-      <th>name</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cc of items">
-      
-      <td>{{ cc.appointment }}</td>
-      <td>{{ cc.appointment }}</td>
-
-      </tr>
-      </tbody>
-      </table>
-
-
-  <table mat-table [dataSource]="items" class="mat-elevation-z8">
+  <table mat-table [dataSource]="appointments" class="mat-elevation-z8">
     <ng-container matColumnDef="UserId">
       <th mat-header-cell *matHeaderCellDef> Id </th>
       <td mat-cell *matCellDef="let appointment"> {{appointment._id}}</td>
     </ng-container>
     <ng-container matColumnDef="appointmentId">
       <th mat-header-cell *matHeaderCellDef> Appointment Id </th>
-      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment}} </td>
+      <td mat-cell *matCellDef="let appointment"> {{appointment.appointment.appointmentId}} </td>
     </ng-container>
     <ng-container matColumnDef="appointmentDate">
       <th mat-header-cell *matHeaderCellDef> Appointment date </th>
-      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.appointmentDate }} </td>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.appointmentDate | date:'dd/MM/yyyy' }} </td>
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let appointment"> {{ appointment.name }} </td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> email </th>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.email }} </td>
     </ng-container>
     <ng-container matColumnDef="cancel">
       <th mat-header-cell *matHeaderCellDef> Cancel </th>
@@ -48,47 +32,56 @@
     </ng-container>
     <ng-container matColumnDef="update">
       <th mat-header-cell *matHeaderCellDef> Update </th>
-      <td mat-cell *matCellDef="let appointment"><button (click)= "fillUpdateFields(appointment._id,appointment.appointmentId ,appointment.appointmentDate)"mat-raised-button  
+      <td mat-cell *matCellDef="let appointment"><button (click)= "fillUpdateFields(appointment._id, appointment.appointment.appointmentId, appointment.appointment.appointmentDate, appointment.appointment.name, appointment.appointment.email)"mat-raised-button  
           color="warn">Get</button></td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let appointment; columns: columns"></tr>
   </table>
 </div>
+
 <div class="form-container">
   <h1>Add Booking:</h1>
-  <form (submit)="addNewBooking()">
+  <form (submit)="addNewBooking(foo[0])">
     <mat-form-field>
-      <input [(ngModel)]="appointmentDate" name="appointmentDate" matInput [matDatepicker]="picker"
-        placeholder="Choose a date">
+      <input [(ngModel)]="userId" name="userId" matInput placeholder="userId" [value] =  foo[0]>
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="appointmentId" name="appointmentId" matInput placeholder="AppointmentId" [value] =  foo[1] type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="appointmentDate" name="appointmentDate" matInput [matDatepicker]="picker" placeholder="Choose a date" [value] =  foo[2]>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <input [(ngModel)]="name" name="name" matInput placeholder="Name">
+      <input [(ngModel)]="name" name="name" matInput placeholder="Name" [value] =  foo[3]>
     </mat-form-field>
     <mat-form-field>
-      <input [(ngModel)]="email" name="email" matInput placeholder="Email" type="email">
+      <input [(ngModel)]="email" name="email" matInput placeholder="Email" [value] =  foo[4] type="email">
     </mat-form-field>
     <button mat-raised-button color="warn">Add</button>
   </form>
 </div>
 <div class="form-container">
   <h1>Update Booking:</h1>
-  <form (submit)="editAppointment(name,appointmentDates,appointmentId)">
+  <script type="text/typescript">
+     let  foo: (string)[] = getfoo(); 
+  </script>
+  <form (submit)="editAppointment(foo[0])">
     <mat-form-field>
-      <input [(ngModel)]="appointmentDates" name="appointmentDates" matInput [matDatepicker]="picker1"
-        placeholder="Choose a date">
+      <input [(ngModel)]="userId" name="userId" matInput placeholder="userId" [value] =  foo[0]>
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="appointmentId" name="appointmentId" matInput placeholder="AppointmentId" [value] =  foo[1] type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="appointmentDate" name="appointmentDate" matInput [matDatepicker]="picker1"
+        placeholder="Choose a date" [value] =  foo[2]>
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
-      <input [(ngModel)]="name" name="name" matInput placeholder="Name">
-    </mat-form-field>
-    <mat-form-field>
-      <input [(ngModel)]="appointmentId" name="appointmentId" matInput placeholder="appointmentId" type="text">
-    </mat-form-field>
-    <button mat-raised-button color="warn">Add</button>
+    <button mat-raised-button color="warn">Update</button>
   </form>
 </div>
 

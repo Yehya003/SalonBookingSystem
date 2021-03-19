@@ -24,13 +24,21 @@ export class AdminService {
     name: string,
     email: string,
     password: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    appointmentId: number = 0,
+    appointmentDate: string = ''
   ): Observable<User> {
     return this.http.post<any>(`${this.BASE_URL}/api/auth/register`, {
       name,
       email,
       password,
       isAdmin,
+      appointment: {
+        appointmentId,
+        appointmentDate,
+        name,
+        email,
+      },
     });
   }
 
@@ -51,12 +59,21 @@ export class AdminService {
     email: string,
     password: string,
     isAdmin: boolean,
+    appointmentId: number = 0,
+    appointmentDate: string = ''
+
   ): Observable<User> {
     return this.http.post<User>(`${this.BASE_URL}/api/auth/register`, {
       name,
       email,
       password,
       isAdmin,
+      appointment: {
+        appointmentId,
+        appointmentDate,
+        name,
+        email,
+      },
     });
   }
 
@@ -80,52 +97,72 @@ export class AdminService {
   // methods for booking
 
   createAppointment(
+    appointmentId: number,
     appointmentDate: string,
     name: string,
     email: string
   ): Observable<User> {
-    return this.http.post<any>(`${this.BASE_URL}/api/appointment/`, {
-      appointmentDate,
-      name,
-      email,
-    });
+    return this.http.post<any>(
+      `${this.BASE_URL}/api/appointment/createAppointment`,
+      {
+        appointment: {
+          appointmentId,
+          appointmentDate,
+          name,
+          email,
+        },
+      }
+    );
   }
   //----------------------------------------------------------------------------
   // ADMIN
   getAppointments(): Observable<any[]> {
-    return this.http.get<User[]>(`${this.BASE_URL}/api/appointment/admin/all`);    
+    return this.http.get<User[]>(`${this.BASE_URL}/api/appointment/admin/all`);
   }
-    
 
   // pass appointmenDate, name & email
   adminCreateAppointment(
+    userId: string,
+    appointmentId: number,
     appointmentDate: string,
     name: string,
     email: string
   ): Observable<User> {
-    return this.http.post<any>(`${this.BASE_URL}/api/appointment/admin`, {
-      appointmentDate,
-      name,
-      email,
-    });
+    return this.http.put<any>(
+      `${this.BASE_URL}/api/appointment/admin/${userId}`,
+      {
+        userId,
+        appointment: {
+          appointmentId,
+          appointmentDate,
+          name,
+          email,
+        },
+      }
+    );
   }
 
   //pass appointmentId & userId in the body
-  cancelAppointment(id: string): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/api/appointment/admin/${id}`);
+  cancelAppointment(userId: string): Observable<any> {
+    return this.http.delete<any>(
+      `${this.BASE_URL}/api/appointment/admin/${userId}`
+    );
   }
 
   // userId, appointmentId, appointmentDate in the body
   updateAppointment(
     userId: string,
-    appointmentId: string,
-    appointmentDate: string,
+    appointmentId: number,
+    appointmentDate: string
   ): Observable<User> {
     return this.http.patch<User>(
-      `${this.BASE_URL}/api/appointment/admin${userId}`,
+      `${this.BASE_URL}/api/appointment/admin/${userId}`,
       {
-        appointmentId,
-        appointmentDate,
+        userId,
+        appointment: {
+          appointmentId,
+          appointmentDate,
+        },
       }
     );
   }

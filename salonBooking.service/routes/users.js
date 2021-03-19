@@ -4,13 +4,13 @@ const User = require("../model/User");
 const verify = require("./verifyToken");
 // add ,verify to method signature to make it private
 /* GET users listing. */
-router.get('/', async (req, res, next) => {
+router.get("/", verify ,async (req, res, next) => {
   try {
-     const allUsers = await User.find();
-  res.json(allUsers);
+    const allUsers = await User.find();
+    res.json(allUsers);
   } catch (error) {
-    res.json({message: error});
-  }  
+    res.json({ message: error });
+  }
 });
 
 // get a specific user using his id
@@ -32,20 +32,21 @@ router.delete("/:userId", verify, async (req, res) => {
     res.json({ message: error });
   }
 });
+ // one must send his own ID 
+router.put("/:userId",verify, async (req, res) => {
 
-router.put("/:userId", verify, async (req, res) => {
   try {
-    let id= req.params.userId;
-    const update= {
-    name: req.body.name, 
-    email: req.body.email
-    }
-        console.log(req.params.userId , update);
-    const updatedUser = await User.updateOne(
-      { _id: id },update
-    );
+    let id = req.body.userId;
+    console.log(id);
+    const update = {
+
+      name: req.body.name,
+      email: req.body.email,
+    };
+    console.log(id + update);
+
+    const updatedUser = await User.updateOne({ _id: id }, update);
     res.json(updatedUser);
-    
   } catch (error) {
     res.json({ message: error });
   }
