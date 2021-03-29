@@ -7,6 +7,7 @@ import { ManageBookingComponent } from './manage-booking/manage-booking.componen
 import { ManageCustomerComponent } from './manage-customer/manage-customer.component';
 import { LoginComponent } from './login/login.component';
 import { AboutPageComponent } from './about-page/about-page.component';
+import {LogoutComponent} from './logout/logout.component';
 
 const routes: Routes = [
   {
@@ -15,8 +16,13 @@ const routes: Routes = [
   },
 
   {
-    path: 'logout',
+    path: 'homepage',
     component:HomePageComponent,
+  },
+
+  {
+    path: 'logout',
+    component:LogoutComponent,
   },
   
   {

@@ -15,6 +15,7 @@ import { Appointment } from './Appointment';
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private BASE_URL = environment.BASE_URL;
+  tst: [] = [];
   constructor(private http: HttpClient, private _router: Router) {}
 
   //-------------- Methods for customer----------------
@@ -83,13 +84,12 @@ export class AdminService {
   updateCustomer(
     userId: string,
     name: string,
-    email: string
-    //appointment: []
+    email: string,
   ): Observable<User> {
-    return this.http.put<User>(`${this.BASE_URL}/api/users/${userId}/`, {
+    return this.http.put<User>(`${this.BASE_URL}/api/users/${userId}/`, 
+    {
       name,
       email,
-      //appointment,
     });
   }
   //--------------------------------------------------------------------------

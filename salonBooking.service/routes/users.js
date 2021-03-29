@@ -37,7 +37,7 @@ router.put("/:userId",verify, async (req, res) => {
 
   try {
     let id = req.body.userId;
-    console.log(id);
+    console.log("here are id: "+id);
     const update = {
 
       name: req.body.name,

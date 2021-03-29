@@ -24,7 +24,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxModule, MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY} from '@angular/material/checkbox';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
