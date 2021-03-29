@@ -22,9 +22,6 @@ export class ManageCustomerComponent implements OnInit {
   password!: string;
   userId!: string;
   foo: string[] = [];
-  username!: string;
-  useremail!: string;
-  userpassword!: string;
   appointmentId!: number;
   appointmentDate!: string;
 
@@ -59,12 +56,15 @@ export class ManageCustomerComponent implements OnInit {
       );
   }
 
-  updateCustomer(userId: string, username: string, useremail: string) {
-    console.log(username, useremail, userId);
+  updateCustomer(userId: string) {
+    console.log(this.name, this.email, userId);
     this.successMsg = '';
     this.errorMsg = '';
-    this.adminService.updateCustomer(userId, username, useremail).subscribe(
-      () => {
+    this.adminService.updateCustomer(userId, this.name, this.email).subscribe(
+      (updateCustomerInfo: User) => {
+        //this.name='';
+        //this.email='';
+        //this.userId='';
         this.successMsg = 'Customer updated sucssefully!';
       },
       (error: ErrorEvent) => {
@@ -86,20 +86,18 @@ export class ManageCustomerComponent implements OnInit {
   addNewCustomer() {
     this.successMsg = '';
     this.errorMsg = '';
-    console.log('here the value of is admin: ' + this.isAdmin);
     this.adminService
       .adminAddCustomer(this.name, this.email, this.password, this.isAdmin, this.appointmentId, this.appointmentDate)
       .subscribe(
-        () => {
+        (adminAddCustomer: User) => {
+          this.name = '';
+          this.email ='';
+          this.password ='';
           this.successMsg = 'Customer added sucssefully!';
         },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;
         }
       );
-  }
-
-  isReply(): boolean {
-    return true;
   }
 }

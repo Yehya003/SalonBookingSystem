@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.email = '';
       this.password = '';
-      this.successMsg = 'You are NOT logged in!';
+      this.successMsg = 'You are logged in!';
       this.router.navigate(['/booking']);
     } 
     

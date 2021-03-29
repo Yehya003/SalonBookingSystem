@@ -51,22 +51,24 @@
     <mat-checkbox [(ngModel)]="isAdmin" name="isAdmin" class="checkIsAdmin"
        [checked]="true"> isAdmin
     </mat-checkbox>
-
      <button mat-raised-button color="warn">Add</button>
   </form>
 </div>
 
-<div class="form-containers">
+<div class="form-container">
   <h1>Update Customer:</h1>
   <script type="text/typescript">
      let  foo: (string)[] = getfoo(); 
   </script>
-  <form (submit)="updateCustomer(foo[0],username, useremail)" >
+  <form (submit)="updateCustomer(foo[0])" >
     <mat-form-field>
-      <input [(ngModel)]="username" name="name" matInput placeholder= "Name:" [value] =  foo[1] >
+      <input [(ngModel)]="userId" name="userId" matInput placeholder="UserId:" [value]=foo[0]>
     </mat-form-field>
     <mat-form-field>
-      <input [(ngModel)]="useremail" name="email" type="email" matInput placeholder="Email:" [value] = foo[2] >
+      <input [(ngModel)]="name" name="name" matInput placeholder= "Name:" [value] =  foo[1] >
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="email" name="email" type="email" matInput placeholder="Email:" [value] = foo[2] >
     </mat-form-field>
     <button mat-raised-button color="warn"> Update</button>
   </form>
