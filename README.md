@@ -65,4 +65,4 @@ Is an HTTP-header based mechanism that allows a server to indicate any other ori
 
 ## Front-end specifications & Features
 
-The front-end was developed and designed using Angular, along with Angular material UI components that Angular CLI provides. The theming used in this project was Indigo-pink. The front-end structured in a way to be more simpller to understand, debug, tested as well as developed in the future. It was also developed on using HttpClient in order to comunicate with microservices (ExpressJs) to be able to provide the user with the info/oerations that needed from the server.
+The front-end was developed and designed using Angular, along with Angular material UI components that Angular CLI provides. The theming used in this project was an Indigo pink. The front-end structured in a way to be simpler to understand, debug, tested as well as developing in the future. It was also developed to use HTTP Client to communicate with the server (Express.js) to be able to provide the user with the info/operations that needed from the server.
