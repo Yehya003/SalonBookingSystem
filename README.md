@@ -62,3 +62,7 @@ This allows us to specify a .env file that can contain the values we want for th
 ### Cors
 
 Is an HTTP-header based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.
+
+## Front-end specifications & Features
+
+The front-end was developed and designed using Angular, along with Angular material UI components that Angular CLI provides. The theming used in this project was Indigo-pink. The front-end structured in a way to be more simpller to understand, debug, tested as well as developed in the future. It was also developed on using HttpClient in order to comunicate with microservices (ExpressJs) to be able to provide the user with the info/oerations that needed from the server.
