@@ -3,22 +3,22 @@
 <html>
 
 <head>
+
 </head>
 
 <body>
-
 <!-- SIgn in button -->
 <mat-toolbar *ngIf="successMsg" color="accent">{{ successMsg }}</mat-toolbar>
 <mat-toolbar *ngIf="errorMsg" color="warn">{{ errorMsg }}</mat-toolbar>
 
 <div class="form-container">
-
-    <form (submit)="signIn()">
+<!--  only add the functions as follows and take away the ngIf "validateInput();signIn()" if doesn't work the return it to sign in only  // <p id="thanks" hidden>Your data has been received. Thanks!</p><br> -->
+    <form (submit)= "signIn()" id="form" >
         <mat-form-field>
-            <input [(ngModel)]="email" name="email" matInput placeholder="Email" type="email">
+            <input [(ngModel)]="email" name="email" matInput placeholder="Email" type="email" id="email">
         </mat-form-field>
         <mat-form-field>
-            <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password">
+            <input [(ngModel)]="password" name="password" matInput placeholder="Password" type="password" id="password">
         </mat-form-field>
         <button mat-raised-button color="primary">Sign in</button>
         

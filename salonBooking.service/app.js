@@ -38,7 +38,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(logger("dev"));
-app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -74,7 +73,7 @@ app.use(function (err, req, res, next) {
 //<------------ Connect to DB  ------------->
 mongoose.connect(
   process.env.DB_CONNECT,
-  { useNewUrlParser: true },
+  { useUnifiedTopology: true , useNewUrlParser: true },//{ useNewUrlParser: true },
   () => console.log("Connected To DB!")
 );
 //--------------------------------------------

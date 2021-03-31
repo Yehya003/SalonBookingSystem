@@ -25,10 +25,7 @@ const routes: Routes = [
     component:LogoutComponent,
   },
   
-  {
-    path: 'manageCustomer',
-    component:ManageCustomerComponent,
-  },
+  
   {
     path: 'manageBooking',
     component:ManageBookingComponent,

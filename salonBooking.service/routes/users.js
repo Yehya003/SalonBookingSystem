@@ -36,7 +36,7 @@ router.delete("/:userId", verify, async (req, res) => {
 router.put("/:userId",verify, async (req, res) => {
 
   try {
-    let id = req.body.userId;
+    let id = req.params.userId;
     console.log("here are id: "+id);
     const update = {
 
