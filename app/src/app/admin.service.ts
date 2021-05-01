@@ -160,7 +160,7 @@ export class AdminService {
         userId,
         appointment: {
           appointmentId,
-          appointmentDate,
+          appointmentDate
         },
       }
     );

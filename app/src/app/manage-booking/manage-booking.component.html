@@ -24,7 +24,7 @@
     </ng-container>
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef> email </th>
-      <td mat-cell *matCellDef="let appointment"> {{ appointment.appointment.email }} </td>
+      <td mat-cell *matCellDef="let appointment"> {{ appointment.email }} </td>
     </ng-container>
     <ng-container matColumnDef="cancel">
       <th mat-header-cell *matHeaderCellDef> Cancel </th>
@@ -32,7 +32,7 @@
     </ng-container>
     <ng-container matColumnDef="update">
       <th mat-header-cell *matHeaderCellDef> Update </th>
-      <td mat-cell *matCellDef="let appointment"><button (click)= "fillUpdateFields(appointment._id, appointment.appointment.appointmentId, appointment.appointment.appointmentDate, appointment.appointment.name, appointment.appointment.email)"mat-raised-button  
+      <td mat-cell *matCellDef="let appointment"><button (click)= "fillUpdateFields(appointment._id, appointment.appointment.appointmentId, appointment.appointment.appointmentDate, appointment.name, appointment.email)"mat-raised-button  
           color="warn">Get</button></td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
