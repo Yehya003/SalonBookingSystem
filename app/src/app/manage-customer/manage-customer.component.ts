@@ -22,8 +22,8 @@ export class ManageCustomerComponent implements OnInit {
   password!: string;
   userId!: string;
   foo: string[] = [];
-  appointmentId!: number;
-  appointmentDate!: string;
+  appointmentId: number = 0;
+  appointmentDate: string = '';
 
   constructor(public adminService: AdminService) {}
 

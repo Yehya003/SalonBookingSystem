@@ -65,15 +65,18 @@ router.delete("/admin/:userId", verify, async (req, res) => {
 
  var theAppointment = {
    appointment: {
-     appointmentId: 0,
-     appointmentDate: "0 - 0",
-     name: "0 - 0",
-     email: "0 - 0",
+     appointmentId: null,
+     appointmentDate: null,
+     name: null,
+     email: null,
    },
  };
     const appointment = await User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $set: { appointment:  theAppointment } },
+      { $set: { 
+        //appointment:  theAppointment
+        "appointment.appointmentDate": theAppointment.appointmentDate
+       } },
       { new: true },
       function (err) {
         if (err) {

@@ -37,7 +37,7 @@ export class BookingComponent implements OnInit {
           this.name = '';
           this.email = '';
           //const appointmentDate = new Date(createdAppointment.appointmentDate).toDateString();
-          this.successMsg = `Appointment Booked Successfully for`;
+          this.successMsg = `Appointment Booked Successfully `;
         },
         (error: ErrorEvent) => {
           this.errorMsg = error.error.message;

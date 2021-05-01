@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'logout',
     component:LogoutComponent,
   },
+  {
+    path: 'manageCustomer',
+    component:ManageCustomerComponent,
+  },
   
   
   {
