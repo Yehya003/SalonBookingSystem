@@ -75,7 +75,8 @@ router.delete("/admin/:userId", verify, async (req, res) => {
       { _id: req.params.userId },
       { $set: { 
         //appointment:  theAppointment
-        "appointment.appointmentDate": theAppointment.appointmentDate
+        "appointment.appointmentDate": theAppointment.appointmentDate,
+        "appointment.appointmentId": theAppointment.appointmentId
        } },
       { new: true },
       function (err) {
